@@ -20,23 +20,14 @@ fn parse(input: &str) -> Vec<Vec<usize>> {
         .collect()
 }
 
-fn all_valid(levels: &[usize]) -> bool {
-    let mut gt = None;
-    levels.windows(2).map(|n| (n[0], n[1])).all(|(a, b)| {
-        if gt.is_some_and(|gt| gt != (b > a)) {
-            return false;
-        }
-        gt = Some(b > a);
-        let diff = a.abs_diff(b);
-        diff > 0 && diff < 4
-    })
+fn all_valid(nums: &Vec<usize>) -> bool {
+    nums.windows(2)
+        .map(|n| (n[0], n[1]))
+        .all(|(a, b)| (a < b) == (nums[0] < nums[1]) && (1..=3).contains(&a.abs_diff(b)))
 }
 
 fn solve_part1(input: &str) -> usize {
-    parse(input)
-        .into_iter()
-        .filter(|levels| all_valid(&levels))
-        .count()
+    parse(input).into_iter().filter(all_valid).count()
 }
 
 fn solve_part2(input: &str) -> usize {
