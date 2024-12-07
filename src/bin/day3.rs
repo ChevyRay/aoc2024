@@ -30,7 +30,7 @@ fn solve_part1(input: &str) -> usize {
 }
 
 fn solve_part2(input: &str) -> usize {
-    Regex::new(r"do\(\)|don\x27t\(\)|mul\(\d{1,3},\d{1,3}\)")
+    Regex::new(r"do\(\)|don't\(\)|mul\(\d{1,3},\d{1,3}\)")
         .unwrap()
         .find_iter(input)
         .map(|op| op.as_str())
