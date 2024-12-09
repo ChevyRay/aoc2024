@@ -1,3 +1,5 @@
+use itertools::Itertools;
+
 fn main() {
     let input = include_str!("day2.txt");
     println!("PART 1: {}", solve_part1(input));
@@ -23,9 +25,9 @@ fn parse(input: &str) -> Vec<Vec<usize>> {
 fn valid(report: &Vec<usize>) -> bool {
     let asc = report[0] < report[1];
     report
-        .windows(2)
-        .map(|n| (n[0], n[1]))
-        .all(|(a, b)| (a < b) == asc && (1..=3).contains(&a.abs_diff(b)))
+        .into_iter()
+        .tuple_windows()
+        .all(|(a, b)| (a < b) == asc && (1..=3).contains(&a.abs_diff(*b)))
 }
 
 fn solve_part1(input: &str) -> usize {
