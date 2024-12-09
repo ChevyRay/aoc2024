@@ -16,7 +16,7 @@ fn test() {
 fn parse(input: &str) -> (Vec<usize>, Vec<usize>) {
     input
         .lines()
-        .map(|line| line.split_whitespace().next_tuple().unwrap())
+        .map(|line| line.split_whitespace().collect_tuple().unwrap())
         .map(|(a, b)| (a.parse::<usize>().unwrap(), b.parse::<usize>().unwrap()))
         .unzip()
 }
