@@ -1,3 +1,5 @@
+use itertools::Itertools;
+
 fn main() {
     let input = include_str!("day1.txt");
     println!("PART 1: {}", solve_part1(input));
@@ -14,7 +16,7 @@ fn test() {
 fn parse(input: &str) -> (Vec<usize>, Vec<usize>) {
     input
         .lines()
-        .map(|line| line.split_once("   ").unwrap())
+        .map(|line| line.split_whitespace().next_tuple().unwrap())
         .map(|(a, b)| (a.parse::<usize>().unwrap(), b.parse::<usize>().unwrap()))
         .unzip()
 }
@@ -30,7 +32,7 @@ fn solve_part1(input: &str) -> usize {
 }
 
 fn solve_part2(input: &str) -> usize {
-    let (mut left, mut right) = parse(input);
+    let (left, right) = parse(input);
     left.into_iter()
         .map(|a| a * right.iter().filter(|b| a.eq(b)).count())
         .sum()
